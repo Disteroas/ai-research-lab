@@ -448,6 +448,6 @@ check of the first launch was overwritten by the relaunch; the register replaces
 
 ## License
 
-To be chosen by the author before publication.
+MIT (see [LICENSE](../LICENSE)).
 
 The publication gate was judged by an independent session; its verdict is kept privately.
