@@ -1,0 +1,20 @@
+---
+
+## Nota operativa — modalità non presidiata
+
+Nessun umano è disponibile ai quattro checkpoint. **Ai checkpoint decidi tu**: scrivi nel file del run
+la decisione presa e la motivazione, poi prosegui senza attendere. È l'unica deviazione dal protocollo.
+
+Tutto il resto resta invariato e non è negoziabile:
+- quattro fasi, quattro checkpoint documentati;
+- `03_criteri.md` in un **commit dedicato**, prima di qualunque commit dentro `04_impl/`;
+- log grezzi committati **prima** di invocare il critic;
+- un solo committer: tu. I subagent scrivono file e basta.
+
+**Se in `run/` esiste un run precedente su una domanda somigliante, non è questa domanda.** Leggi il
+problema qui sopra e trattalo come nuovo: apri il tuo run, i tuoi criteri, il tuo verdetto. Puoi
+riusare metodo e codice di un run passato citandolo, ma criteri e verdetto sono di questo run e non si
+ereditano.
+
+Se il cancello di fattibilità non è superato, **fermati e dichiaralo**: è un esito riuscito.
+Non contattare l'utente: non c'è. Porta il run fino al controverdetto e poi fermati.
