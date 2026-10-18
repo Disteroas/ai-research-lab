@@ -36,6 +36,32 @@ down why. The rules that carry the design ([`protocol/README.md`](protocol/READM
 Each of the 19 numbered rules was written after a failure; [`protocol/rules.md`](protocol/rules.md)
 lists them with the failure behind each one.
 
+## Why it exists, and its limits
+
+The lab was built for fun, as a side project, to find out whether a research lab made of AI agents was
+feasible at all: could a chain of agents take a question to a measured verdict without inventing data
+or moving the goalposts? The bench exists because the first real run looked rigorous and had measured
+the wrong thing. What came out is a verification protocol with a worked example, not a research tool.
+Its limits are the ones a reviewer would list first:
+
+- **Sample.** Four cases per round, six rounds, synthetic problems that compute in seconds. A
+  benchmark would need dozens of cases and at least one problem with real data.
+- **Circularity.** The cases, the scores and the repairs come from the same model family, in separate
+  roles with separate contexts. Role separation is an argument, not a proof; human-written answers
+  and a second model on the scoring side would be the next step.
+- **Iteration until success.** Six rounds, the last one passed. Every failed round is in the register
+  and consumed cases were replaced, which answers the p-hacking objection but not this one: how many
+  versions would a fresh batch of cases take? A seventh batch, run without repairs, would answer it.
+- **The ablation.** A single session with a ten-line preamble got 3 verdicts out of 4 in about 17
+  minutes; the lab got 2 out of 4 in about 3 h 21 min on the same cases. Most of the lab's path
+  advantage is declared statistical power, which that preamble did not ask for. The structure buys
+  auditability; whether it buys verdicts is not shown here.
+- **The metric.** Each score declares a substantive and a strict reading of the rubric; on round 6
+  they give 16/16 and 10/16. A rubric with that degree of freedom needs several independent scorers
+  and an agreement measure before its totals mean much.
+- **Scale.** One harness, one vendor, one machine, two runs killed by usage limits and relaunched.
+  Nothing here says how the protocol behaves on problems that take hours instead of seconds.
+
 ## How it is tested
 
 Each case is a small problem with a known answer. The answer is sealed outside the lab's repository,
@@ -112,32 +138,6 @@ case was titled "pass, equivalent". [Story](results/cases/round6-D2-one-or-three
 | [`docs/`](docs/) | [`DETAILS.md`](docs/DETAILS.md): every number with its source, alternative readings, errata, provenance |
 | [`SANITIZATION.md`](SANITIZATION.md) | what was replaced before publication, and why the checksums differ from the originals |
 
-## Why it exists, and its limits
-
-The lab was built for fun, as a side project, to find out whether a research lab made of AI agents was
-feasible at all: could a chain of agents take a question to a measured verdict without inventing data
-or moving the goalposts? The bench exists because the first real run looked rigorous and had measured
-the wrong thing. What came out is a verification protocol with a worked example, not a research tool.
-Its limits are the ones a reviewer would list first:
-
-- **Sample.** Four cases per round, six rounds, synthetic problems that compute in seconds. A
-  benchmark would need dozens of cases and at least one problem with real data.
-- **Circularity.** The cases, the scores and the repairs come from the same model family, in separate
-  roles with separate contexts. Role separation is an argument, not a proof; human-written answers
-  and a second model on the scoring side would be the next step.
-- **Iteration until success.** Six rounds, the last one passed. Every failed round is in the register
-  and consumed cases were replaced, which answers the p-hacking objection but not this one: how many
-  versions would a fresh batch of cases take? A seventh batch, run without repairs, would answer it.
-- **The ablation.** A single session with a ten-line preamble got 3 verdicts out of 4 in about 17
-  minutes; the lab got 2 out of 4 in about 3 h 21 min on the same cases. Most of the lab's path
-  advantage is declared statistical power, which that preamble did not ask for. The structure buys
-  auditability; whether it buys verdicts is not shown here.
-- **The metric.** Each score declares a substantive and a strict reading of the rubric; on round 6
-  they give 16/16 and 10/16. A rubric with that degree of freedom needs several independent scorers
-  and an agreement measure before its totals mean much.
-- **Scale.** One harness, one vendor, one machine, two runs killed by usage limits and relaunched.
-  Nothing here says how the protocol behaves on problems that take hours instead of seconds.
-
 ## Scope
 
 Every case is synthetic; a round-5 run used between 0.44 s and 3.34 s of compute
@@ -147,5 +147,5 @@ rounds 2-4** ([round-5 pre-registration](results/bench/2026-10-17-preregistrazio
 37-38). The lab has not been used on real research ([rules file](harness/claude-code/CLAUDE.md), line 5).
 The numbers hold for this setup and no other.
 
-License: to be added.
+License: [MIT](LICENSE).
 Details, caveats, errata and provenance: [docs/DETAILS.md](docs/DETAILS.md).
