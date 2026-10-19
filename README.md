@@ -7,8 +7,9 @@ takes a question from hypothesis to verdict, with the pass/fail criteria frozen 
 anything is measured. The bench gives the lab problems whose answers are sealed out of its reach.
 
 The latest version of the lab got 4 blind cases out of 4, including one where the right answer was
-"I don't know" and one where the right move was to stop. In the five earlier rounds, run on four
-earlier versions, the bench found a defect every time.
+"I don't know" and one where the right move was to stop. Run again, unchanged, on a second batch of
+four new cases, it got 4 out of 4 again. In the five earlier rounds, run on four earlier versions, the
+bench found a defect every time.
 
 ## What the lab does
 
@@ -44,14 +45,16 @@ or moving the goalposts? The bench exists because the first real run looked rigo
 the wrong thing. What came out is a verification protocol with a worked example, not a research tool.
 Its limits are the ones a reviewer would list first:
 
-- **Sample.** Four cases per round, six rounds, synthetic problems that compute in seconds. A
+- **Sample.** Four cases per round, seven rounds, synthetic problems that compute in seconds. A
   benchmark would need dozens of cases and at least one problem with real data.
 - **Circularity.** The cases, the scores and the repairs come from the same model family, in separate
   roles with separate contexts. Role separation is an argument, not a proof; human-written answers
   and a second model on the scoring side would be the next step.
 - **Iteration until success.** Six rounds, the last one passed. Every failed round is in the register
   and consumed cases were replaced, which answers the p-hacking objection but not this one: how many
-  versions would a fresh batch of cases take? A seventh batch, run without repairs, would answer it.
+  versions would a fresh batch of cases take? A seventh round answered it: four new cases, never seen,
+  run on the byte-identical system with no repairs in between, passed again, 4/4 verdicts and 16/16
+  path. One fresh batch is still a small sample, and one of the four cases barely discriminated.
 - **The ablation.** A single session with a ten-line preamble got 3 verdicts out of 4 in about 17
   minutes; the lab got 2 out of 4 in about 3 h 21 min on the same cases. Most of the lab's path
   advantage is declared statistical power, which that preamble did not ask for. The structure buys
